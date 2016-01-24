@@ -23,9 +23,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
@@ -51,41 +48,39 @@ public class SoapXMLTest {
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-        Environment environment1 = new Environment("Sweden", "SVE", "http://localhost:8080/soap");
-        Environment environment2 = new Environment("Latvia", "LVI", "http://localhost:8080/soap");
+        Environment environment1 = new Environment("AGNIA", "Sweden", "SVE", "http://localhost:8080/soap");
+        Environment environment2 = new Environment("SUE", "Latvia", "LVI", "http://localhost:8080/soap");
         environmentDAO.save(environment1);
         environmentDAO.save(environment2);
 
 
-        String xml1 = "<>{{test1}}</><>{{test2}}</>";
-        SoapXML soapXML1 = new SoapXML("test1",xml1,"this is test1 description", soapXMLDAO.getPlaceholders(xml1), "some action");
-        String xml2 = "<head>{{test1}}</head><body>vadfia</body>";
-        SoapXML soapXML2 = new SoapXML("test2",xml2,"this is test2 description", soapXMLDAO.getPlaceholders(xml2), "some action2");
+        String xml1 = "<?xml version=\"1.0\"?><soap:Envelope soap:encodingStyle=\"http://www.w3.org/2003/05/soap-encoding\">\n" +
+                "<soap:Body xmlns:m=\"http://www.example.org/stock\">\n" +
+                "  <m:GetStockPriceResponse>\n" +
+                "    <m:Price>{{price}}</m:Price>\n" +
+                "  </m:GetStockPriceResponse>\n" +
+                "</soap:Body>\n" +
+                "</soap:Envelope>";
+        SoapXML soapXML1 = new SoapXML("test1", xml1, "this is test1 description", soapXMLDAO.getPlaceholders(xml1), "document/someaction");
+        String xml2 = "<?xml version=\"1.0\"?><soap:Envelope soap:encodingStyle=\"http://www.w3.org/2003/05/soap-encoding\">\n" +
+                "<soap:Body xmlns:m=\"http://www.example.org/stock\">\n" +
+                "  <m:GetStockPriceResponse>\n" +
+                "    <m:Price>{{price1}}</m:Price>\n" +
+                "    <m:Price>{{price2}}</m:Price>\n" +
+                "    <m:Price>{{price3}}</m:Price>\n" +
+                "  </m:GetStockPriceResponse>\n" +
+                "</soap:Body>\n" +
+                "</soap:Envelope>";
+        SoapXML soapXML2 = new SoapXML("test2", xml2, "this is test2 description", soapXMLDAO.getPlaceholders(xml2), "document/someaction2");
 
         this.soapXMLDAO.deleteAll();
         this.soapXMLDAO.save(Arrays.asList(new SoapXML[]{soapXML1, soapXML2}));
     }
+
     @Test
-    public void test(){
+    public void test() {
 
     }
-
-/*    @TestClass
-    public void test() throws Exception {
-        String bookmarkJson = json(new Bookmark(
-                this.account, "http://spring.io", "a bookmark to the best resource for Spring news and information"));
-        this.mockMvc.perform(post("/" + userName + "/bookmarks")
-                .contentType(contentType)
-                .content(bookmarkJson))
-                .andExpect(status().isCreated());
-    }
-
-    @TestClass
-    public void userNotFound() throws Exception {
-        mockMvc.perform(get("/api/soap?id=999999")
-                .contentType(contentType)
-                .andExpect(status().isNotFound());
-    }*/
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
@@ -100,7 +95,7 @@ public class SoapXMLTest {
 
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
-     @Autowired
+    @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
 
         this.mappingJackson2HttpMessageConverter = Arrays.asList(converters).stream().filter(
@@ -109,8 +104,6 @@ public class SoapXMLTest {
         Assert.assertNotNull("the JSON message converter must not be null",
                 this.mappingJackson2HttpMessageConverter);
     }
-
-
 
 
 }

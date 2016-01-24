@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{job.name}}</h3>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <div class="form-group">
+            <select name="repeatSelect" id="repeatSelect" ng-model="selectedEnv">
+                <option ng-repeat="option in envs" value="{{option}}">{{option}}</option>
+            </select>
+        </div>
+
+        <div ng-repeat="placeholder in job.placeholders">
+            <div class="form-group">
+                <input type='text' ng-model='inputVals[placeholder]' placeholder="{{placeholder}}">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group-sm collapse-group">
+                    <a class="" data-toggle="collapse" aria-expanded="false" data-target="#request">&rightarrow;</a></p>
+                    <div id="request" class="collapse">
+                        <textarea class="col-md-8" rows="7" ng-model="req">{{req}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-hide="res">
+                <div class="form-group-sm collapse-group">
+                    <a class="" data-toggle="collapse" aria-expanded="false" data-target="#res">&leftarrow;</a></p>
+                    <div id="res" class="collapse">
+                        <textarea class="col-md-8" rows="7" ng-model="res">{{res}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Send</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>

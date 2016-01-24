@@ -12,7 +12,8 @@ import java.util.Set;
  * Created by Dell on 16.01.2016.
  */
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+
 public class User {
 
     @Id

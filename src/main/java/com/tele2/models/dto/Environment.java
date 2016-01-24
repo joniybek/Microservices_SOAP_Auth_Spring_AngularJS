@@ -1,19 +1,17 @@
 package com.tele2.models.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Dell on 16.01.2016.
- */
 @Entity
+@Table(name = "ENVIRONMENT", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 public class Environment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
+
+    @NotNull
+    String name;
 
     @NotNull
     String countryName;
@@ -32,7 +30,8 @@ public class Environment {
         this.endpoint = endpoint;
     }
 
-    public Environment(String countryName, String countryCode, String endpoint) {
+    public Environment(String name, String countryName, String countryCode, String endpoint) {
+        this.name = name;
         this.countryName = countryName;
         this.countryCode = countryCode;
         this.endpoint = endpoint;
@@ -63,5 +62,15 @@ public class Environment {
         this.countryName = countryName;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Environment() {
+
+    }
 }

@@ -32,7 +32,6 @@
                 <center>${title}</center>
             </h3>
             <form class="form" action="/mvc/soap/submit" method="post">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <fieldset>
                     <!-- Text input-->
                     <div class="form-group">
@@ -67,7 +66,7 @@
                         <label class="col-md-10 control-label" for="xml">XML</label>
 
                         <div class="col-md-10">
-                        <textarea onkeyup='formatTextArea(this);' class="form-control" rows="15" id="xml" name="xml">${msg.xml}</textarea>
+                        <textarea onkeyup='formatTextArea(this);' class="form-control" rows="12" id="xml" name="xml">${msg.xml}</textarea>
                         </div>
                     </div>
                     <!-- Button -->

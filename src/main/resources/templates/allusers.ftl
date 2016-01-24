@@ -31,13 +31,13 @@
                                 <td>
                                     <#if data[username][role]=="">
                                         <input type="checkbox" class=" "
-                                               onclick="toggleAndSave(this,'${username}' ,'${role}')">
+                                               onclick="save(this, event,'${role}', '${username}' )">
                                     <#elseif data[username][role]=="reader">
                                         <input type="checkbox" checked="checked" class="tristate"
-                                               onclick="toggleAndSave(this,'${username}', '${role}')">
+                                               onclick="save(this, event , '${role}','${username}')">
                                     <#else>
                                         <input type="checkbox" checked="checked" class=""
-                                               onclick="toggleAndSave(this,'${username}', '${role}')">
+                                               onclick="save(this, event, '${role}','${username}')">
                                     </#if>
                                 <#--${data[username][role]}-->
                                 </td>
@@ -57,35 +57,42 @@
 
 <#macro scripts>
 <script>
-    var containsClass = function (element, cls) {
-        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+    var getSessionId = function () {
+        return document.cookie.match(/sessionId=\w+/g)[0].split('=')[1];
     }
 
     var promote = function (role, resource, user) {
-        $.ajax({
-            url: "/users/promote?role=" + role + "&resource=" + resource + "&user=" + user,
-            cache: false
-        });
+        var s = getSessionId();
+        $.post("/api/auth/users/promote",
+                {
+                    role: role,
+                    resource: resource,
+                    user: user,
+                    sessionId: s
+                },
+                function (data, status) {
+                    console.log('updated');
+                });
     }
 
-    toggleAndSave = function (e, resource, user) {
-        el = e;
-        if (!e.checked) {
-            e.className += "tristate";
-            console.log("to reader" + e.checked);
-            e.setAttribute("checked", "checked");
-            promote("reader", resource, user);
-        } else if (containsClass(e, "tristate")) {
-            console.log("to admin" + e.checked);
-            e.className.replace('tristate', '');
-            promote("admin", resource, user);
-        } else {
-            console.log("to none " + e.checked);
-            e.removeAttribute("checked");
-            promote("", resource, user);
-        }
-        return false;
-    }
+    $(function () {
+        save = function (elm, event, resource, user) {
+            if ($(elm).is(":checked")) {
+                console.log('not checked');
+                promote('reader', resource, user);
+                $(elm).addClass('tristate');
+            } else if ($(elm).hasClass('tristate')) {
+                console.log('reader');
+                promote('admin', resource, user);
+                event.preventDefault();
+                $(elm).removeClass('tristate');
+            } else {
+                console.log('admin');
+                promote('', resource, user);
+            }
+        };
+    });
+
 </script>
 </#macro>
 <style>

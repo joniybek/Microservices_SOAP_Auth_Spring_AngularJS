@@ -31,14 +31,19 @@ public class AuthenticationService {
         resourcesDAO.save(resource3);
 
         Role role1 = new Role(true, resource1);
-        Role role2 = new Role(true, resource2);
-        Role role3 = new Role(false, resource2);
-        Role role4 = new Role(true, resource3);
+        Role role2 = new Role(false, resource1);
+        Role role3 = new Role(true, resource2);
+        Role role4 = new Role(false, resource2);
+        Role role5 = new Role(true, resource3);
+        Role role6 = new Role(false, resource3);
 
         Set<Role> permissions1 = new HashSet<>();
         permissions1.add(role1);
         permissions1.add(role2);
+        permissions1.add(role3);
         permissions1.add(role4);
+        permissions1.add(role5);
+        permissions1.add(role6);
         Set<Role> permissions2 = new HashSet<>();
         permissions2.add(role1);
         permissions2.add(role3);
@@ -46,8 +51,8 @@ public class AuthenticationService {
         permissionsDAO.save(permissions2);
 
 
-        User user1 = new User("test1", "sometext", "email", permissions1);
-        User user2 = new User("test2", "sometext2", "email2", permissions2);
+        User user1 = new User("test1", "testuser", "email@box.me", permissions1);
+        User user2 = new User("test2", "testuser2", "email@box.me", permissions2);
 
         usersDAO.save(user1);
         usersDAO.save(user2);

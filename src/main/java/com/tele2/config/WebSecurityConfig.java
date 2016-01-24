@@ -23,20 +23,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/assets/**", "/mvc/**", "/soap/**", "/contacts/**").permitAll()
+                .antMatchers("/", "/home", "/assets/**", "/api/**", "/client/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .successHandler(restAuthenticationSuccessHandler)
+                .defaultSuccessUrl("/mvc/soap/all")
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
-    }
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll();}
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+
+    @Autowired
+    RESTAuthenticationSuccessHandler restAuthenticationSuccessHandler;
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

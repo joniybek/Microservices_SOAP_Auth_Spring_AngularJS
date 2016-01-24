@@ -57,18 +57,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">SOAP Tool</a>
+            <a class="navbar-brand" href="/">SOAP Tool</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-        <#--<form class="navbar-form navbar-right" role="form">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
+
+            <#if Session["SPRING_SECURITY_CONTEXT"]?exists>
+                <div class="nav navbar-nav navbar-right">
+                    <span style="color:beige"><img src="/assets/img/profile.png" class="img-circle"
+                                                width="30px"> <a href="/logout"> ${Session["SPRING_SECURITY_CONTEXT"].authentication.name}<a>
+                    </span>
                 </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
+            <#else>
+                <div class="nav navbar-nav navbar-right">
+                    <a href="/login">Sign in</a>
                 </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>-->
+            </#if>
+
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
@@ -77,9 +81,16 @@
 <#macro footer>
 <hr>
 
-<footer>
-    <p>&copy; Automation Inc 2016</p>
-</footer>
+<div class="footer">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p>AutoDevs Inc &copy;</p>
+        </div>
+    </div>
+
+</div>
+
 </div> <!-- /container -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>

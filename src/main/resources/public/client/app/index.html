@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='toolsApp' ng-controller='MainCtrl'>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DefectsTool {{selectedNav ? '- '+selectedNav + '?':''}}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="http://localhost/client/app/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/client/app/assets/css/heroic-features.css" rel="stylesheet">
+    <link href="http://localhost/client/app/assets/css/loading-bar.min.css" rel="stylesheet">
+    <link href="http://localhost/client/app/assets/css/app.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container {{selectedNav}}">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SOAP tools</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="Why?">
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-show="!auth.profile" class="login">
+                    <a href="/login" type="button" class="btn btn-link" style="{float: none;text-align: center;display: inline-block;}">Sign In</a>
+                </li>
+
+<!--                <li ng-show="auth.profile" class = "hidden-xs hidden-sm">
+                    <a href="#/login" class="profile-image">
+                        <img ng-src="http://localhost/assets/img/profile.png" class="img-circle" width="30px"> {{auth.profile.nickname}}</a>
+                </li>-->
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div ui-view></div>
+
+
+    <div class="footer">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <p>AutoDevs Inc &copy;</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /.container -->
+<script src="http://localhost/client/app/assets/js/jquery.js"></script>
+<script src="http://localhost/client/app/assets/js/bootstrap.min.js"></script>
+<script src="http://localhost/client/app/assets/js/angular.min.js"></script>
+<script src="http://localhost/client/app/assets/js/angular-ui-router.min.js"></script>
+<script src="http://localhost/client/app/assets/js/angular-cookies.min.js"></script>
+<script src="http://localhost/client/app/assets/js/ui-bootstrap-tpls.min.js"></script>
+<script src="http://localhost/client/app/assets/js/angular-animate.min.js"></script>
+<script src="http://localhost/client/app/assets/js/loading-bar.min.js"></script>
+<script src="http://localhost/client/app/assets/js/ZeroClipboard.Core.min.js"></script>
+<script src="http://localhost/client/app/assets/js/ng-clip.min.js"></script>
+<script src="http://localhost/client/app/assets/js/vkbeautify.js"></script>
+
+<script src="http://localhost/client/app/config/config.js"></script>
+<script src="http://localhost/client/app/app.js"></script>
+<script src="http://localhost/client/app/services/soapdaoservice.js"></script>
+<script src="http://localhost/client/app/views/soapjobs/soapjobs.js"></script>
+<script src="http://localhost/client/app/views/soapjobs/soapjobpopup.js"></script>
+<script src="http://localhost/client/app/config/routes.js"></script>
+<script src="http://localhost/client/app/config/commons.js"></script>
+
+</body>
+
+</html>

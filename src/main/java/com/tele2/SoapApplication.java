@@ -1,18 +1,27 @@
 package com.tele2;
 
-import freemarker.template.utility.XmlEscape;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
 public class SoapApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SoapApplication.class, args);
-	}
+/*    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("*");
+            }
+        };
+    }*/
+
+    public static void main(String[] args) {
+        SpringApplication.run(SoapApplication.class, args);
+    }
 }

@@ -20,8 +20,10 @@ public class SoapXML {
     @NotNull
     String name;
 
+    int rating;
+
     @NotNull
-    @Size(min = 10)
+    @Column(name="xml", columnDefinition="TEXT")
     String xml;
 
     public SoapXML(String name, String xml, String description, List<String> placeholders, String soapAction) {
@@ -104,5 +106,12 @@ public class SoapXML {
         this.soapAction = soapAction;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 }
 

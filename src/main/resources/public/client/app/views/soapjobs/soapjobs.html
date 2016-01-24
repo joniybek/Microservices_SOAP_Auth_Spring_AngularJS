@@ -1,0 +1,26 @@
+<div class="container">
+	<div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div id="imaginary_container"> 
+                <div class="input-group stylish-input-group">
+                    <input ng-model='search' type="text" class="form-control"  placeholder="Search" >
+                    <span class="input-group-addon">
+                        <button type="submit">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<hr style='margin-bottom: 20px;'>
+
+
+<div class="container">
+    <div class="tags">
+        <a ng-repeat="job in jobs|searchFor:search|orderBy:'-rating'" class="tag" ng-click="open(job.xml_id)">{{job.name}}</a>
+    </div>
+</div>
+<hr style='margin-bottom: 20px;'>
+

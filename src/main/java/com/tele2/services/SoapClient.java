@@ -11,6 +11,7 @@ import org.apache.http.protocol.HTTP;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.Random;
 
 /**
  * Created by jakhashr on 15.01.2016.
@@ -63,6 +64,10 @@ public class SoapClient {
         String endpoint = environment.getEndpoint();
         String soapAction = soapXML.getSoapAction();
         String xml = soapXML.getXml();
+        try {
+            Thread.sleep(1000 + new Random(System.currentTimeMillis()).nextInt(900));
+        } catch (InterruptedException e) {
+        }
         return sendSoapMessage(endpoint, soapAction, xml);
 
     }
